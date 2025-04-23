@@ -15,6 +15,4 @@ app.use("/api/auth", authRouters);
 
 // const userRouters = require("./routes/user.route.js");
 // app.use("/api/user", userRouters);
-
-
 module.exports = app;
