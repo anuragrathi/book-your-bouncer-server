@@ -1,46 +1,60 @@
-const passport = require("passport");
+// config/passport.js
 
+const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const User = require("../models/user.model");
-console.log("stage1");
-// Google OAuth Strategy (hard-coded for now)
+
+console.log("🔄 Loading Passport Google OAuth strategy...");
+/*
+// Google OAuth Strategy — hardcoded credentials
 passport.use(
   new GoogleStrategy(
     {
-      clientID: "process.env.GOOGLE_CLIENT_ID",
-      clientSecret: "process.env.GOOGLE_CLIENT_SECRET",
-      callbackURL: "/auth/google/callback",
+      clientID: "397306430248-l3d1fh36bbpaqvvs8059g41hld20o98s.apps.googleusercontent.com",
+      clientSecret: "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",
+      callbackURL: "http://localhost:5858/api/auth/google/callback", // Must match your router path
+      scope: ["profile", "email"],
+    }, */
+
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
+
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: GOOGLE_CALLBACK_URL,
       scope: ["profile", "email"],
     },
     async (accessToken, refreshToken, profile, done) => {
-      console.log("stage google stratergy", GoogleStrategy);
-
       try {
-        console.log("stage2 try");
         let user = await User.findOne({ googleId: profile.id });
-        console.log("user:", user);
-        if (!user) {
-          console.log("stage2 try if");
 
+        if (!user) {
           user = new User({
             googleId: profile.id,
+            name: profile.displayName, // ✅ this satisfies the required 'name' field
             displayName: profile.displayName,
-            email: profile.emails[0].value,
-            image: profile.photos[0].value,
+            email: profile.emails?.[0]?.value || "",
+            image: profile.photos?.[0]?.value || "",
           });
-
           await user.save();
         }
+
         return done(null, user);
       } catch (err) {
-        console.log(" error:", err);
+        console.error("❌ Passport error:", err);
         return done(err, null);
       }
     }
   )
 );
 
+// Serialize and deserialize users for session support
 passport.serializeUser((user, done) => done(null, user._id));
+
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
