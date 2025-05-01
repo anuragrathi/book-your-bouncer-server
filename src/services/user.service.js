@@ -14,7 +14,7 @@ const createUser = async (userData) => {
             lastName,
             email,
             password: hashedPassword,
-            role: "USER", 
+            role: "user", 
         });
         return user;
     } catch (error) {

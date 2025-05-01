@@ -1,18 +1,32 @@
 const mongoose = require("mongoose");
 
-const userschema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
   },
-  password: {
+  email: {
+    // required for Google and helpful for JWT
     type: String,
     required: true,
+    unique: true,
+  },
+  password: {
+    // Only for local (JWT) users
+    type: String,
+  },
+  googleId: {
+    // Only for Google users
+    type: String,
+  },
+  image: {
+    // Optional profile pic (Google)
+    type: String,
   },
   role: {
     type: String,
-    required: true,
     default: "user",
+    required: true,
   },
   phone: {
     type: String,
@@ -23,29 +37,17 @@ const userschema = new mongoose.Schema({
       ref: "addresses",
     },
   ],
-  // paymentInformation: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "payment_informtion",
-  //   },
-  // ],
-  // ratings: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "ratings",
-  //   },
-  // ],
-  // reviews: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "reviews",
-  //   },
-  // ],
+  authType: {
+    type: String,
+    enum: ["local", "google"],
+    default: "local",
+    required: true,
+  },
   createdAt: {
     type: Date,
-    default: Date.now(),
+    default: Date.now,
   },
 });
 
-const user = mongoose.model("users", userschema);
-module.exports = user;
+const User = mongoose.model("users", userSchema);
+module.exports = User;
