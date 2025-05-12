@@ -1,9 +1,9 @@
 const { default: mongoose } = require("mongoose");
 
-const mongodbUrl = "mongodb+srv://anuragrathi:kDGSLAShH6xVOTzJ@registrations.tlqyisv.mongodb.net/?retryWrites=true&w=majority&appName=REGISTRATIONS";
+const mongodbUrl = process.env.MONGODB_URI;
 
 const connectDb = () => {
-  console.log("Bouncer's DB is connected");
+  console.log("📡 Connecting to MongoDB...");
   return mongoose.connect(mongodbUrl);
 };
 
