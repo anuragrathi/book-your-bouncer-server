@@ -1,9 +1,9 @@
-// server.js
+// import ".env";
 
 const app = require("./index");
 const { connectDb } = require("./config/db");
 
-const PORT = process.env.PORT || 5858;
+const PORT =5858;
 
 
 (async () => {

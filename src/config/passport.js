@@ -16,9 +16,9 @@ passport.use(
       scope: ["profile", "email"],
     }, */
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const GOOGLE_CALLBACK_URL = process.env.GOOGLE_CALLBACK_URL;
+const GOOGLE_CLIENT_ID ="397306430248-l3d1fh36bbpaqvvs8059g41hld20o98s.apps.googleusercontent.com";
+const GOOGLE_CLIENT_SECRET = "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";
+const GOOGLE_CALLBACK_URL = "http://localhost:5858/api/auth/google/callback";
 
 passport.use(
   new GoogleStrategy(
