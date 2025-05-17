@@ -12,6 +12,7 @@ const accountSchema = new mongoose.Schema(
       state: String,
       postalCode: String,
       country: String,
+      
     },
     Chest_in_Inches__c: { type: String, maxlength: 112 },
     CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
