@@ -13,11 +13,6 @@ const productLineItemSchema = new mongoose.Schema(
       ref: "Product",
       required: true,
     },
-    OwnerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    }, 
     CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, 
     LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },

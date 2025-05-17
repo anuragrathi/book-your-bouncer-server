@@ -4,7 +4,6 @@ const validator = require("validator");
 const accountSchema = new mongoose.Schema(
   {
     Name: { type: String, required: true, trim: true },
-    OwnerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     Age__c: { type: Number },
 
     Biceps__c: {

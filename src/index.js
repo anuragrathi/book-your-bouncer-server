@@ -10,6 +10,7 @@ const app = express();
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 const SESSION_SECRET = process.env.SESSION_SECRET || "defaultsecret";
 
+// Middleware
 app.use(express.json());
 
 app.use(
@@ -24,13 +25,14 @@ app.use(
   session({
     secret: SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false, // recommended for login-based apps
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Test route
 app.get("/", (req, res) => {
   res.status(200).send({
     message: "Welcome to Bouncer API - Node",
@@ -38,19 +40,13 @@ app.get("/", (req, res) => {
   });
 });
 
-// ROUTES
-const authRouters = require("./routes/auth.route.js");
-const productRoutes = require("./routes/product.route.js");
-const accountRoutes = require("./routes/account.route.js");
-const productLineItemRoutes = require("./routes/productLineItem.route.js");
-
-app.use("/api/auth", authRouters);
-app.use("/api/products", productRoutes);
-app.use("/api/accounts", accountRoutes);
-app.use("/api/product-line-items", productLineItemRoutes);
-
-// Uncomment if user routes are needed
-// const userRouters = require("./routes/user.route.js");
-// app.use("/api/user", userRouters);
+// Routes
+app.use("/api/auth", require("./routes/auth.route.js"));
+app.use("/api/products", require("./routes/product.route.js"));
+app.use("/api/accounts", require("./routes/account.route.js"));
+app.use(
+  "/api/product-line-items",
+  require("./routes/productLineItem.route.js")
+);
 
 module.exports = app;
