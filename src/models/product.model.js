@@ -2,24 +2,20 @@ const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    Name: { type: String, required: true, trim: true }, 
-    ProductCode: { type: String, unique: true }, 
-    Description: { type: String, maxlength: 4000 }, 
-    IsActive: { type: Boolean, default: true }, 
+    Name: { type: String, required: true, trim: true },
+    ProductCode: { type: String, unique: true },
+    Description: { type: String, maxlength: 4000 },
+    IsActive: { type: Boolean, default: true },
     Bouncer_Build__c: {
       type: String,
-      enum: ["Lightweight", "Medium", "Heavyweight"],
-    }, 
+      enum: ["Lean Built", "Medium Built", "Heavy Built"],
+    },
     Bouncer_Category__c: {
       type: String,
-      enum: ["Elite", "Standard", "Rookie"],
+      enum: ["3rd Class", "2nd Class", "1st Class"],
     },
-    ProductClass: { type: String, enum: ["Standard", "Premium", "Economy"] }, 
-    QuantityUnitOfMeasure: {
-      type: String,
-      enum: ["Hour", "Day", "Event", "Shift"],
-    },
-    SourceProductId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" }, 
+
+    SourceProductId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },

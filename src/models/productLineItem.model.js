@@ -18,8 +18,8 @@ const productLineItemSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     }, 
-    CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Created By
-    LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Last Modified By
+    CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, 
+    LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
