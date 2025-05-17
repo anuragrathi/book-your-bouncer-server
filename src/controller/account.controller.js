@@ -1,4 +1,4 @@
-const Account = require("../models/temp.model");
+const Account = require("../models/account.model.js");
 
 const createAccount = async (req, res) => {
   try {
