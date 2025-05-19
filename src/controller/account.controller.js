@@ -31,11 +31,12 @@ const updateAccount = async (req, res) => {
       return res.status(400).json({ error: "Invalid account ID" });
     }
 
-    const updatedAccount = await Account.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true, runValidators: true }
-    );
+ const updatedAccount = await Account.findByIdAndUpdate(
+  id,
+  req.body,
+  { new: true, runValidators: true }
+);
+
 
     if (!updatedAccount) {
       return res.status(404).json({ error: "Account not found" });
