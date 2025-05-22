@@ -7,7 +7,7 @@ require("./config/passport");
 
 const app = express();
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const SESSION_SECRET = process.env.SESSION_SECRET || "defaultsecret";
 
 // Middleware
