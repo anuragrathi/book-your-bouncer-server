@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
   });
 });
 
-// Routes
+//Frontend - Salesforce Inbound Routes
 app.use("/api/auth", require("./routes/auth.route.js"));
 app.use("/api/products", require("./routes/product.route.js"));
 app.use("/api/accounts", require("./routes/account.route.js"));
@@ -49,4 +49,8 @@ app.use(
   require("./routes/productLineItem.route.js")
 );
 
+
+// Salesforce Outbound routes
+const sfdcAccountRoutes = require('./sfdc/routes/accountRoutes');
+app.use('/sfdc/accounts', sfdcAccountRoutes);
 module.exports = app;
