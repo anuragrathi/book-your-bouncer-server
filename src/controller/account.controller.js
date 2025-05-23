@@ -26,26 +26,53 @@ const updateAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate ObjectId
+    // Validate MongoDB ObjectId format
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      return res.status(400).json({ error: "Invalid account ID" });
+      console.warn("❌ Invalid MongoDB ObjectId:", id);
+      return res.status(400).json({
+        success: false,
+        message: "Invalid account ID format",
+        errorCode: "INVALID_OBJECT_ID"
+      });
     }
+
+    console.log("🔄 Updating Account:", id);
+    console.log("📥 Incoming Update Payload:", JSON.stringify(req.body, null, 2));
 
     const updatedAccount = await Account.findByIdAndUpdate(
       id,
-      { $set: req.body },
+      req.body,
       { new: true, runValidators: true }
     );
 
     if (!updatedAccount) {
-      return res.status(404).json({ error: "Account not found" });
+      console.warn("⚠️ No account found with ID:", id);
+      return res.status(404).json({
+        success: false,
+        message: "Account not found",
+        errorCode: "NOT_FOUND"
+      });
     }
 
-    res.json(updatedAccount);
+    console.log("✅ Account updated successfully:", updatedAccount);
+    return res.status(200).json({
+      success: true,
+      message: "Account updated successfully",
+      data: updatedAccount
+    });
+
   } catch (err) {
-    res.status(400).json({ error: err.message });
+    console.error("💥 Account update failed:", err.message);
+
+    return res.status(400).json({
+      success: false,
+      message: "Account update failed",
+      error: err.message,
+      errorCode: "UPDATE_ERROR"
+    });
   }
 };
+
 
 module.exports = {
   createAccount,
