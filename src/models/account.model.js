@@ -169,7 +169,8 @@ const accountSchema = new mongoose.Schema(
       },
     },
   },
-  { timestamps: true }
+  { timestamps: true,
+    strict: 'throw'} // now invalid fields will throw error 
 );
 
 module.exports = mongoose.model("Account", accountSchema);
