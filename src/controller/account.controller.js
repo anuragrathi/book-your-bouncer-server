@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+mongoose = require("mongoose");
 const Account = require("../models/account.model.js");
 
 // Create a new account
@@ -26,56 +26,83 @@ const updateAccount = async (req, res) => {
   try {
     const { id } = req.params;
 
-    // Validate MongoDB ObjectId format
     if (!mongoose.Types.ObjectId.isValid(id)) {
-      console.warn("❌ Invalid MongoDB ObjectId:", id);
       return res.status(400).json({
         success: false,
         message: "Invalid account ID format",
-        errorCode: "INVALID_OBJECT_ID"
+        errorCode: "INVALID_OBJECT_ID",
       });
     }
 
-    console.log("🔄 Updating Account:", id);
-    console.log("📥 Incoming Update Payload:", JSON.stringify(req.body, null, 2));
-
-    const updatedAccount = await Account.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const updatedAccount = await Account.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
     if (!updatedAccount) {
-      console.warn("⚠️ No account found with ID:", id);
       return res.status(404).json({
         success: false,
         message: "Account not found",
-        errorCode: "NOT_FOUND"
+        errorCode: "NOT_FOUND",
       });
     }
 
-    console.log("✅ Account updated successfully:", updatedAccount);
     return res.status(200).json({
       success: true,
       message: "Account updated successfully",
-      data: updatedAccount
+      data: updatedAccount,
     });
-
   } catch (err) {
-    console.error("💥 Account update failed:", err.message);
-
     return res.status(400).json({
       success: false,
       message: "Account update failed",
       error: err.message,
-      errorCode: "UPDATE_ERROR"
+      errorCode: "UPDATE_ERROR",
     });
   }
 };
 
+// ❌ Delete an account by ID
+const deleteAccount = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid account ID format",
+        errorCode: "INVALID_OBJECT_ID",
+      });
+    }
+
+    const deletedAccount = await Account.findByIdAndDelete(id);
+
+    if (!deletedAccount) {
+      return res.status(404).json({
+        success: false,
+        message: "Account not found",
+        errorCode: "NOT_FOUND",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Account deleted successfully",
+      data: deletedAccount,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete account",
+      error: err.message,
+      errorCode: "DELETE_ERROR",
+    });
+  }
+};
 
 module.exports = {
   createAccount,
   getAllAccounts,
   updateAccount,
+  deleteAccount, // ← Export the new function
 };

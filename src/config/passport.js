@@ -35,8 +35,7 @@ passport.use(
         if (!user) {
           user = new User({
             googleId: profile.id,
-            name: profile.displayName, // ✅ this satisfies the required 'name' field
-            displayName: profile.displayName,
+            username: profile.displayName, // ✅ this satisfies the required 'name' field
             email: profile.emails?.[0]?.value || "",
             image: profile.photos?.[0]?.value || "",
           });
