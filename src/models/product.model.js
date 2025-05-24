@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   {
     Name: { type: String, required: true, trim: true },
-    ProductCode: { type: String, unique: true },
+    ProductCode: { type: String },
     Description: { type: String, maxlength: 4000 },
     IsActive: { type: Boolean, default: true },
     Bouncer_Build__c: {

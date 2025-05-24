@@ -29,7 +29,7 @@ const updateProduct = async (req, res) => {
       return res.status(400).json({ error: "Invalid Product ID" });
     }
 
-    const updatedProduct = await Account.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       id,
       { $set: req.body },
       { new: true, runValidators: true }
