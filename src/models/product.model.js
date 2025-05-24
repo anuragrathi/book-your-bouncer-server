@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema(
     CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true, strict: "throw" }
 );
 
 module.exports = mongoose.model("Product", productSchema);

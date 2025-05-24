@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
     authType: { type: String, enum: ["local", "google"], default: "local" },
   },
-  { timestamps: true }
+  { timestamps: true, strict: "throw" }
 );
 
 module.exports = mongoose.model("User", userSchema);
