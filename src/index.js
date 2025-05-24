@@ -7,7 +7,7 @@ require("./config/passport");
 
 const app = express();
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 const SESSION_SECRET = process.env.SESSION_SECRET || "defaultsecret";
 
 // Middleware
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
   });
 });
 
-//Frontend - Salesforce Inbound Routes
+// Routes
 app.use("/api/auth", require("./routes/auth.route.js"));
 app.use("/api/products", require("./routes/product.route.js"));
 app.use("/api/accounts", require("./routes/account.route.js"));
@@ -49,8 +49,16 @@ app.use(
   require("./routes/productLineItem.route.js")
 );
 
+//Frontend - Salesforce Inbound Routes
+// app.use("/api/auth", require("./routes/auth.route.js"));
+// app.use("/api/products", require("./routes/product.route.js"));
+// app.use("/api/accounts", require("./routes/account.route.js"));
+// app.use(
+//   "/api/product-line-items",
+//   require("./routes/productLineItem.route.js")
+// );
 
 // Salesforce Outbound routes
-const sfdcAccountRoutes = require('./sfdc/routes/accountRoutes');
-app.use('/sfdc/accounts', sfdcAccountRoutes);
+const sfdcAccountRoutes = require("./sfdc/routes/accountRoutes");
+app.use("/sfdc/accounts", sfdcAccountRoutes);
 module.exports = app;

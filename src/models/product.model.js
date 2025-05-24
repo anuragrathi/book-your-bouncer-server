@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const productSchema = new mongoose.Schema(
   {
     Name: { type: String, required: true, trim: true },
-    ProductCode: { type: String },
+    ProductCode: { type: String, unique: true },
     Description: { type: String, maxlength: 4000 },
     IsActive: { type: Boolean, default: true },
     Bouncer_Build__c: {
@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema(
     CreatedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     LastModifiedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
-  { timestamps: true }
+  { timestamps: true, strict: "throw" }
 );
 
 module.exports = mongoose.model("Product", productSchema);

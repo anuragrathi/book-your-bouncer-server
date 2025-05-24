@@ -4,9 +4,10 @@ const validator = require("validator");
 const accountSchema = new mongoose.Schema(
   {
     Name: { type: String, required: true, trim: true },
+
     Age__c: { type: Number },
 
-    Biceps__c: {
+    Biceps_in_Inches__c: {
       type: String,
       enum: [
         "14 Inches",
@@ -24,7 +25,7 @@ const accountSchema = new mongoose.Schema(
       ],
     },
 
-    Chest__c: {
+    Chest_in_Inches__c: {
       type: String,
       enum: [
         "40 Inches",
@@ -45,7 +46,7 @@ const accountSchema = new mongoose.Schema(
       ],
     },
 
-    Height__c: {
+    Height_in_Centimeters__c: {
       type: String,
       enum: [
         "173 CM",
@@ -94,7 +95,7 @@ const accountSchema = new mongoose.Schema(
       enum: ["Hot", "Warm", "Cold"],
     },
 
-    Weight: {
+    Weight_in_Kilograms__c: {
       type: Number,
       max: 999,
     },
@@ -102,11 +103,6 @@ const accountSchema = new mongoose.Schema(
     Active__c: {
       type: String,
       enum: ["Yes", "No"],
-    },
-
-    RecordTypeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
     },
 
     Profile_Image__c: {
@@ -169,8 +165,7 @@ const accountSchema = new mongoose.Schema(
       },
     },
   },
-  { timestamps: true,
-    strict: 'throw'} // now invalid fields will throw error 
+  { timestamps: true, strict: "throw" }
 );
 
 module.exports = mongoose.model("Account", accountSchema);
