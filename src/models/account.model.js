@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
-const validator = require("validator");
 
 const accountSchema = new mongoose.Schema(
   {
-    Name: { type: String, required: true, trim: true },
-
+    Salutation: { type: String, trim: true },
+    FirstName: { type: String, trim: true },
+    LastName: { type: String, trim: true },
     Age__c: { type: Number },
-
     Biceps_in_Inches__c: {
       type: String,
       enum: [
@@ -105,65 +104,13 @@ const accountSchema = new mongoose.Schema(
       enum: ["Yes", "No"],
     },
 
-    Profile_Image__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
+    Profile_Image__c: { type: String },
 
-    Display_Image_1__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
-
-    Display_Image_2__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
-
-    Display_Image_3__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
-
-    Display_Image_4__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
-
-    Display_Image_5__c: {
-      type: String,
-      validate: {
-        validator: function (v) {
-          return validator.isURL(v);
-        },
-        message: "Invalid URL format.",
-      },
-    },
+    Display_Image_1__c: { type: String },
+    Display_Image_2__c: { type: String },
+    Display_Image_3__c: { type: String },
+    Display_Image_4__c: { type: String },
+    Display_Image_5__c: { type: String },
   },
   { timestamps: true, strict: "throw" }
 );
