@@ -44,10 +44,8 @@ app.get("/", (req, res) => {
 app.use("/api/auth", require("./routes/auth.route.js"));
 app.use("/api/products", require("./routes/product.route.js"));
 app.use("/api/accounts", require("./routes/account.route.js"));
-app.use(
-  "/api/product-line-items",
-  require("./routes/productLineItem.route.js")
-);
+app.use("/api/product-line-items",require("./routes/productLineItem.route.js"));
+app.use("/api/filter",require("./routes/filter.route.js"));
 
 //Frontend - Salesforce Inbound Routes
 // app.use("/api/auth", require("./routes/auth.route.js"));
