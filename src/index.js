@@ -15,14 +15,22 @@ const app = express();
 const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
 const SESSION_SECRET = process.env.SESSION_SECRET || "defaultsecret";
 
-// 🔧 CORS Options
+// 🌍 Allow CORS for frontend development environments
+const allowedOrigins = [
+  CLIENT_URL,
+  "http://localhost:3000",
+  "http://localhost:5173", // ✅ Vite dev server
+  "http://127.0.0.1:5173"
+];
+
 const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [CLIENT_URL, "http://localhost:3000"];
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
+      console.log(`✅ CORS allowed: ${origin}`);
       callback(null, true);
     } else {
-      callback(new Error("❌ Not allowed by CORS"));
+      console.warn(`❌ CORS blocked: ${origin}`);
+      callback(new Error("Not allowed by CORS"));
     }
   },
   credentials: true,
