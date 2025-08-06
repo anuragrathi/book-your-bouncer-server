@@ -44,7 +44,7 @@ passport.use(
 
         return done(null, user);
       } catch (err) {
-        console.error("❌ Passport error:", err);
+        console.error(" Passport error:", err);
         return done(err, null);
       }
     }
