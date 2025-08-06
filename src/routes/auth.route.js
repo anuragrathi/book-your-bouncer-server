@@ -5,7 +5,7 @@ const authController = require("../controller/auth.controller.js");
 const jwtProvider = require("../config/jwtProvider");
 require("dotenv").config();
 
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:3000";
+const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
 
 // Register and normal login routes (same in both branches)
 router.post("/register", authController.register);
