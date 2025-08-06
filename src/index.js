@@ -60,16 +60,16 @@ app.get("/", (req, res) => {
   });
 });
 
-// 📦 API Routes
-app.use("/api/auth", require("./routes/auth.route"));
-app.use("/api/products", require("./routes/product.route"));
-app.use("/api/accounts", require("./routes/account.route"));
-app.use("/api/product-line-items", require("./routes/productLineItem.route"));
-app.use("/api/filter", require("./routes/filter.route"));
 
+// Routes
+app.use("/api/auth", require("./routes/auth.route.js"));
+app.use("/api/products", require("./routes/product.route.js"));
+app.use("/api/accounts", require("./routes/account.route.js"));
+app.use("/api/product-line-items",require("./routes/productLineItem.route.js"));
+app.use("/api/bookings", require("./routes/booking.route.js"));
+app.use("/api/filter", require("./routes/filter.route"));
 // 🔄 Salesforce Outbound Routes
 app.use("/sfdc/accounts", require("./sfdc/routes/accountRoutes"));
-
 // 🧪 Future Expansion: Salesforce Inbound (disabled)
 // app.use("/api/...", require("./routes/..."));
 

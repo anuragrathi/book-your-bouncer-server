@@ -38,7 +38,7 @@ passport.use(
 
         return done(null, user);
       } catch (err) {
-        console.error("❌ Passport Google OAuth error:", err);
+        console.error(" Passport error:", err);
         return done(err, null);
       }
     }
