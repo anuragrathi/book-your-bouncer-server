@@ -2,7 +2,9 @@ const ProductLineItem = require("../models/productLineItem.model");
 
 const filteration = async (req, res) => {
   const filters = req.body;
-  console.log("Received filters:", filters);
+  const area = req.body;
+  console.log("Received Filter",filters);
+  console.log("Received Location",area);
 
   try {
     // Step 1: Fetch with population
@@ -23,6 +25,17 @@ const filteration = async (req, res) => {
         if (filters.height_173_178 && ["173 CM", "174 CM", "175 CM", "176 CM", "177 CM", "178 CM"].includes(height)) heightMatch = true;
         if (filters.height_179_182 && ["179 CM", "180 CM", "181 CM", "182 CM"].includes(height)) heightMatch = true;
         if (filters.height_above_183 && ["183 CM", "184 CM", "185 CM", "186 CM", "187 CM", "188 CM", "189 CM", "190 CM", "Above 190 CM"].includes(height)) heightMatch = true;
+      }
+      //Area
+      const Location = acc. Service_Location__c;
+      let AreaMatch = true;
+      if(area.Bangalore || area.Chennai  || area.Delhi_NCR || area.Kolkata ||area.Mumbai){
+        AreaMatch = false;
+         if(area.Bangalore && ["Bangalore"].includes(Location)) AreaMatch = true;
+         if(area.Chennai && ["Chennai"].includes(Location)) AreaMatch = true;
+         if(area.Delhi_NCR && ["Delhi_NCR"].includes(Location)) AreaMatch = true;
+         if(area.Kolkata && ["KolKata"].includes(Location)) AreaMatch = true;
+         if(area.Mumbai && ["Mumbai"].includes(Location)) AreaMatch = true;
       }
 
       // 🔹 Age
