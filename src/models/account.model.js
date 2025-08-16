@@ -111,8 +111,17 @@ const accountSchema = new mongoose.Schema(
     Display_Image_3__c: { type: String },
     Display_Image_4__c: { type: String },
     Display_Image_5__c: { type: String },
+    Available_For_Booking__c: { type: Boolean },
+   Service_Location__c:{
+    type:String,
+    enum:["Bangalore" ,"Chennai" , "Delhi_NCR ", "Kolkata", "Mumbai"],
+   },
+   Service_Sub_Area__c:{
+       type:String,
+       enum:["Delhi" , "Gurgaon" ,  "Noida" , "Greater_Noida" , "Ghaziabad" , "Faridabad" , "Andheri", "Bandra"]
+   }
   },
-  { timestamps: true, strict: "throw" }
+  { timestamps: true, strict: "throw" },
 );
 
 module.exports = mongoose.model("Account", accountSchema);
