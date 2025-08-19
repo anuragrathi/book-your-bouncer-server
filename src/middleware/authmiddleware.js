@@ -1,25 +1,23 @@
-import jwtProvider from "../config/jwtProvider.js";
-import User from "../models/user.model.js";
+const jwtProvider = require("../config/jwtProvider.js");
+const User = require("../models/user.model.js");
 
+const optionalAuth = async (req, res, next) => {
+  const { authorization } = req.headers;
 
-const checkIsUserAuthenticated = async (req,res,next)=>{
-    let token;
-    const {authorization} = req.headers;
-    if(authorization){
-        try{
-            token = authorization.split(" ")[1];
-            // verify token
-const userId = jwtProvider.getUserIdFromToken(token);
-        // get user from token 
-req.user = await User.findById(userId).select("-password");
-
-        next();
-        }catch(error){
-            return res.status(401).json({message: "unAuthorized User"});
-        }
-    }else{
-        return res.status(401).json({message: "unAuthorized User"});
+  if (authorization) {
+    try {
+      const token = authorization.split(" ")[1];
+      const userId = jwtProvider.getUserIdFromToken(token);
+      req.user = await User.findById(userId).select("-password");
+    } catch (error) {
+      console.log("Invalid token, continuing as guest");
+      req.user = null;
     }
+  } else {
+    req.user = null; 
+  }
+
+  next();
 };
 
-export default checkIsUserAuthenticated;
+module.exports = optionalAuth;
