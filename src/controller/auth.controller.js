@@ -1,6 +1,7 @@
 const User = require("../models/user.model");
 const jwtProvider = require("../config/jwtProvider");
 const bcrypt = require("bcrypt");
+const tempRegisterSchema = require('../models/temporaryRegiser.modal');
 
 const register = async (req, res) => {
   const { username, email, password } = req.body;
@@ -21,6 +22,7 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    await tempRegisterSchema.findOneAndDelete({email});
     const token = jwtProvider.generateToken(user._id);
     return res.status(201).json({
       token,

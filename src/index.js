@@ -69,6 +69,8 @@ app.use("/api/product-line-items",require("./routes/productLineItem.route.js"));
 app.use("/api/bookings", require("./routes/booking.route.js"));
 app.use("/api/filter", require("./routes/filter.route"));
 app.use("/api/reservation",require("./routes/cart.route.js"));
+app.use("/api/Otp",require("./routes/otpVerification.route.js"));
+app.use("/api/forgetpassword",require("./routes/forgetPass.route.js"));
 // 🔄 Salesforce Outbound Routes
 app.use("/sfdc/accounts", require("./sfdc/routes/accountRoutes"));
 // 🧪 Future Expansion: Salesforce Inbound (disabled)

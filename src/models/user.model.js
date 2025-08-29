@@ -10,6 +10,7 @@ const userSchema = new mongoose.Schema(
     phone: { type: String },
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
     authType: { type: String, enum: ["local", "google"], default: "local" },
+    OTP:{type: Number,default:null},
   },
   { timestamps: true, strict: "throw" }
 );
