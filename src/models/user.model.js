@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     addresses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Address" }],
     authType: { type: String, enum: ["local", "google"], default: "local" },
     OTP:{type: Number,default:null},
+    otpExpire:{type:Date,default:null},
   },
   { timestamps: true, strict: "throw" }
 );
